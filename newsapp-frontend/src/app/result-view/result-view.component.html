@@ -1,4 +1,8 @@
 <button (click) ="newSearch()">Neue Suche</button>
-<div *ngFor = "let article of results">
-  <p>{{article.title}}</p>
-</div>
+<p></p>
+  <div class = resultsview>
+    <div *ngFor = "let article of results">
+      <p>{{article.title}}</p>
+    </div>
+  </div>
+

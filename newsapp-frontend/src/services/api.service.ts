@@ -12,4 +12,8 @@ export class ApiService {
     return this.http.get('http://localhost:8080/news?q='+q+'&page='+page);
   }
 
+  checkForNewArticles(q: string) {
+    return this.http.get('http://localhost:8080/news?q='+q+'&pageSize=1');
+  }
+
 }
