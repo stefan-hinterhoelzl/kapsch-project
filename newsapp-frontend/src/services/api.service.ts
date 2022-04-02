@@ -8,8 +8,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getNews() {
-    return this.http.get('http://localhost:8080/news');
+  getNews(q: string, page: number = 1) {
+    return this.http.get('http://localhost:8080/news?q='+q+'&page='+page);
   }
 
 }

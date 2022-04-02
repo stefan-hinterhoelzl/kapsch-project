@@ -9,11 +9,6 @@ import { ApiService } from 'src/services/api.service';
 })
 export class AppComponent{
   title = 'newsapp-frontend';
-  text?: string;
 
-  constructor(private api: ApiService) {
-    this.api.getNews().subscribe((message) => {
-      this.text = (message as any).message;
-    })
-  }
+
 }
