@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
 import { ResultViewComponent } from './result-view/result-view.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from './angular-material.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { ResultViewComponent } from './result-view/result-view.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
