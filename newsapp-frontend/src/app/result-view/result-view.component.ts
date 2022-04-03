@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { interval, mergeMap, Subscription, take } from 'rxjs';
 import { Article } from 'src/models/article';
 import { ApiService } from 'src/services/api.service';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-result-view',
@@ -11,18 +12,20 @@ import { ApiService } from 'src/services/api.service';
 })
 export class ResultViewComponent implements OnInit, OnDestroy {
 
+  q?: string;
   amountOfResults: number = -1
   amountOfPages: number = -1
   currentPage = 1;
   results: Article[] = [];
   latestArticle?: Article;
   detailArticle?: Article
-  lastupdated?: number
+  lastUpdated?: number
 
   UpdateObservable?: Subscription
+  routeSubscription?: Subscription
 
 
-  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router, private snackbar: SnackbarComponent) { }
 
 
   ngOnDestroy(): void {
@@ -33,33 +36,48 @@ export class ResultViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    let q = this.route.snapshot.paramMap.get("q") || " ";
+    this.routeSubscription = this.route.params.subscribe(params => {
+      let q: string = params["q"]
+      this.q = q;
+      this.initialize(q);
+    })
+  }
 
-    this.loadArticles(q, 1);
+
+  initialize(q: string) {
+
+    this.loadArticles(q);
 
     if (q != " ") {
-      this.UpdateObservable = interval(1200000) //1200000ms = 1200s = 10 min
+      this.UpdateObservable = interval(600000) //600000ms = 600s = 10 min
       .pipe(
         mergeMap(() => this.api.checkForNewArticles(q))
       ).subscribe((data: any) => {
-        this.lastupdated = Date.now();
+        console.log(Date.now())
+        this.lastUpdated = Date.now();
         let article: Article = data[0].articles[0];
         if (article.title != this.latestArticle?.title) {
           //New articles discovered
           if (this.currentPage == 1) {
-            //TO DO Load the new page 1 again
+            this.loadArticles(q);
+            this.snackbar.openSnackBar("Neue Artikel geladen.", "green-snackbar");
           } else {
             //TO DO show notification to go back to page 1
+            let ref = this.snackbar.openSnackBar("Neue Artikel sind verfügbar. Zur Seite 1 zurückkehren?", undefined, "Ja");
+
+            ref.onAction().subscribe(()=> {
+              this.loadArticles(q);
+            })
           }
         }
-      })
+      });
     }
   }
 
-  loadArticles(q: string, page: number) {
+  loadArticles(q: string, page: number = -1) {
 
     if (q != " ") {
-      this.api.getNews(q).pipe(
+      this.api.getNews(q, page).pipe(
         take(1))
         .subscribe((data: any) => {
         console.log(data);
@@ -67,7 +85,7 @@ export class ResultViewComponent implements OnInit, OnDestroy {
         this.amountOfPages = Math.ceil(this.amountOfResults/20);
         this.results = data[0].articles;
         this.latestArticle = this.results[0]
-        this.lastupdated = Date.now();
+        this.lastUpdated = Date.now();
       })
     }
 
@@ -75,6 +93,17 @@ export class ResultViewComponent implements OnInit, OnDestroy {
 
   newSearch(): void {
     this.router.navigate(["search"])
+  }
+
+  goToNextPage(): void {
+    this.currentPage = this.currentPage+1;
+    if (this.q != undefined && this.currentPage != undefined) this.loadArticles(this.q, this.currentPage);
+  }
+
+
+  goToPreviousPage(): void {
+    this.currentPage = this.currentPage-1;
+    if (this.q != undefined && this.currentPage != undefined) this.loadArticles(this.q, this.currentPage);
   }
 
 }

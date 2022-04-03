@@ -53,10 +53,11 @@ export class AuthService {
       this.router.navigate(["/search"]);
     }).catch((error) => {
       console.log(error.code)
-      if (error.code == "auth/account-exists-with-different-credential" || error.code == "auth/email-already-exists") {
+      if (error.code == "auth/account-exists-with-different-credential" || error.code == "auth/email-already-exists" || error.code == "auth/email-already-in-use") {
         this.snackbar.openSnackBar("Email existiert bereits.", "red-snackbar");
+      } else {
+        this.snackbar.openSnackBar("Fehler beim Anlegen des Benutzers!", "red-snackbar");
       }
-      this.snackbar.openSnackBar("Fehler beim Anlegen des Benutzers!", "red-snackbar");
     });
   }
 }

@@ -1,7 +1,37 @@
-
-  <div class = resultsview>
-    <div *ngFor = "let article of results">
-      <p>{{article.title}}</p>
+<div>
+  <div class = wrapper>
+    <div class = header>
+      <h2>Schlagzeilen über {{q}}</h2>
+      <span>Letztes Update: {{lastUpdated | date:'dd.MM.yyyy HH:mm'}}</span>
     </div>
+
+    <!-- TODO -->
+    <div class = "articles" *ngFor = "let article of results">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+          {{article.publishedAt | date:'dd.MM.yyyy HH:mm' }}: {{article.title}}
+          </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class = "detail-content">
+        <img src = "{{article.urlToImage}}">
+        <p>{{article.description}}</p>
+        <p *ngIf = "article.author != null">Autor: {{article.author}}</p>
+
+        <a href="{{article.url}}">Hier zum Originalartikel</a>
+      </div>
+      </mat-expansion-panel>
   </div>
 
+    <!-- Page pointers-->
+    <div class = "page-pointers">
+      <div *ngIf = "currentPage > 1" class = "left-pointer">
+        <mat-icon (click) = "goToPreviousPage()" class = "icon" >keyboard_arrow_left</mat-icon>
+      </div>
+      <div *ngIf = "currentPage < amountOfPages && currentPage < 5" class = "right-pointer">
+        <mat-icon (click) = "goToNextPage()" class = "icon" >keyboard_arrow_right</mat-icon>
+      </div>
+
+    </div>
+  </div>
+</div>

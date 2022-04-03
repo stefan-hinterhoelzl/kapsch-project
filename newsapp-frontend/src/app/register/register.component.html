@@ -6,7 +6,7 @@
       </mat-card-header>
 
       <form  [formGroup] = "form">
-          <div style = "color: #cccccc">
+          <div style = "color: #cccccc; margin-bottom: 5%;">
 
             <mat-form-field class="example-full-width">
               <mat-label>Email</mat-label>
@@ -23,6 +23,7 @@
               <mat-label>Passwort wiederholen</mat-label>
                 <input matInput type = "password" [formControl] = "passwordRepeat">
             </mat-form-field>
+            <span style = "cursor: pointer;" routerLink="/login" >Bereits registriert? Hier einloggen.</span>
           </div>
 
           <button style="margin-top: 2%;" mat-stroked-button color=primary [disabled] = "!form.valid" (click) = "signUpUser()"  class="btn-block">Registrieren</button>

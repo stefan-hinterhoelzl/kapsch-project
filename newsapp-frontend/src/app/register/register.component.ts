@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
       this.password.setValue("");
       this.passwordRepeat.setValue("");
     } else {
-      let email: string = this.email.value.toLowerCase();
+      let email: string = (this.email.value).toLowerCase();
       let password: string = this.password.value;
 
       this.auth.createUserWithEmailAndPassword(email, password);
