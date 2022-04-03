@@ -1,0 +1,31 @@
+<div class="main-wrapper" style = "display: flex; justify-content: center; align-items: center; flex-direction: column;">
+  <h1 style = "font-size: 3rem; color:#3F51B5; padding-bottom: 5%;">The Newsroom</h1>
+  <mat-card class="box">
+      <mat-card-header>
+          <mat-card-title>Registrieren</mat-card-title>
+      </mat-card-header>
+
+      <form  [formGroup] = "form">
+          <div style = "color: #cccccc">
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+                <input matInput type = "text" [formControl] = "email" >
+            </mat-form-field>
+
+
+            <mat-form-field class="example-full-width" >
+              <mat-label>Passwort</mat-label>
+                <input matInput type = "password" [formControl] = "password">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" >
+              <mat-label>Passwort wiederholen</mat-label>
+                <input matInput type = "password" [formControl] = "passwordRepeat">
+            </mat-form-field>
+          </div>
+
+          <button style="margin-top: 2%;" mat-stroked-button color=primary [disabled] = "!form.valid" (click) = "signUpUser()"  class="btn-block">Registrieren</button>
+      </form>
+  </mat-card>
+</div>

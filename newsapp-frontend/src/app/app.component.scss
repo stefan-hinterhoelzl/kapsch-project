@@ -2,12 +2,76 @@ mat-toolbar{
   background-color: #383838;
 }
 
-mat-toolbar span {
-  color:#cccccc;
-  font-size: xx-large;
+.app-header {
+  justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+
 }
 
-mat-toolbar img {
-  height: 50px;
-  width: 50px;
+mat-toolbar span {
+  color:#cccccc;
+  font-size: x-large;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+mat-form-field {
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: row;
+}
+
+.row-end {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.row-middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-field-style {
+  font-size: small;
+  color:#cccccc;
+}
+
+
+.icon-label{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon{
+  margin-top: -20px;
+  transform: scale(1.25);
+  color: #3F51B5;
+}
+.lable{
+  display: block;
+  margin-top: -25px;
+  cursor: pointer;
+  color:#cccccc;
 }

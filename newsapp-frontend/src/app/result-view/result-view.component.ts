@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { interval, mergeMap, Observable, startWith, Subscription, take } from 'rxjs';
+import { interval, mergeMap, Subscription, take } from 'rxjs';
 import { Article } from 'src/models/article';
 import { ApiService } from 'src/services/api.service';
 
@@ -38,7 +38,7 @@ export class ResultViewComponent implements OnInit, OnDestroy {
     this.loadArticles(q, 1);
 
     if (q != " ") {
-      this.UpdateObservable = interval(600000) //600000ms = 600s = 5 min
+      this.UpdateObservable = interval(1200000) //1200000ms = 1200s = 10 min
       .pipe(
         mergeMap(() => this.api.checkForNewArticles(q))
       ).subscribe((data: any) => {

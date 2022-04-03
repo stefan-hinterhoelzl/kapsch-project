@@ -1,6 +1,35 @@
-<mat-toolbar>
+<mat-toolbar *ngIf = "isLoggedIn" class = "app-header">
 
-<span>The Newsroom</span>
+  <div class = "navbar">
+    <div class = "row">
+      <span>The Newsroom</span>
+    </div>
+
+    <div class = "form-field-style">
+      <mat-form-field>
+      <mat-label>Suchen</mat-label>
+      <input matInput type = "text" (keydown.enter) = "search()"[(ngModel)] = "q">
+      </mat-form-field>
+    </div>
+
+
+    <div class = "row-end">
+      <div style = "margin-right: 25%">
+        <span style = "font-size: small">{{email}}</span>
+      </div>
+      <div>
+        <button mat-icon-button class="icon-label" (click) = "logout()">
+          <mat-icon class="icon" id="exit_to_app" color="accent">exit_to_app</mat-icon>
+          <label for="exit_to_app" class="lable">Logout</label>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
 </mat-toolbar>
+
+<div style="height:70px"></div>
 
 <router-outlet></router-outlet>
