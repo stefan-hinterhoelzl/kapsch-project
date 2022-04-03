@@ -5,12 +5,26 @@
       <span style = "cursor: pointer;" routerLink = "/search">The Newsroom</span>
     </div>
 
-    <div class = "form-field-style">
-      <mat-form-field>
-      <mat-label>Suchen</mat-label>
-      <input matInput type = "text" (keydown.enter) = "search()"[(ngModel)] = "q">
-      </mat-form-field>
-    </div>
+    <div class = "search-options">
+      <div class = "form-field-style">
+        <mat-form-field>
+        <mat-label>Suchen</mat-label>
+        <input matInput type = "text" (keydown.enter) = "search()"[(ngModel)] = "q">
+        </mat-form-field>
+      </div>
+
+      <!-- <div class = "form-field-style">
+        <mat-form-field appearance="fill">
+          <mat-label> Kategorie wählen</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let category of categories" [value] = "category.value">
+              {{category.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+
+  </div>
 
 
     <div class = "row-end">

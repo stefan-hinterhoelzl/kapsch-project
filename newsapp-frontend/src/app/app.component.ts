@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
 import { getAuth, onAuthStateChanged, User} from '@firebase/auth';
 import { SnackbarComponent } from './snackbar/snackbar.component';
+import { Category } from 'src/models/category';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,14 @@ export class AppComponent{
   public q?: string;
   isLoggedIn: boolean = false;
   email?: string
+
+  categories: Category[] = [{viewValue:"Business", value: "business"},
+  {viewValue:"Entertainment", value: "entertainment"},
+  {viewValue:"Allgemein", value: "general"},
+  {viewValue:"Gesundheit", value: "health"},
+  {viewValue:"Wissenschaft", value: "science"},
+  {viewValue:"Sport", value: "sports"},
+  {viewValue:"Technologie", value: "technology"}];
 
 
   constructor(private auth: AuthService, private router: Router, private snackbar: SnackbarComponent) {
