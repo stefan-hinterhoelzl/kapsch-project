@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { interval, mergeMap, Subscription, take } from 'rxjs';
+import { interval, mergeMap, Subscription, switchMap, take } from 'rxjs';
 import { Article } from 'src/models/article';
 import { ApiService } from 'src/services/api.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
@@ -51,7 +51,7 @@ export class ResultViewComponent implements OnInit, OnDestroy {
     if (q != " ") {
       this.UpdateObservable = interval(600000) //600000ms = 600s = 10 min
       .pipe(
-        mergeMap(() => this.api.checkForNewArticles(q))
+        switchMap(() => this.api.checkForNewArticles(q))
       ).subscribe((data: any) => {
         console.log(Date.now())
         this.lastUpdated = Date.now();
